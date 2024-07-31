@@ -10,25 +10,15 @@ cards:
         cards:
           - type: vertical-stack
             cards:
-              - type: weather-forecast
-                title: "Weather"
+              - type: custom:clock-weather-card
                 entity: weather.openweathermap
-              - type: horizontal-stack
-                cards:
-                  - type: tile
-                    vertical: true
-                    entity: input_boolean.buzz_home
-                    tap_action:
-                      action: toggle
-                    icon_tap_action:
-                      action: toggle
-                  - type: tile
-                    vertical: true
-                    entity: input_boolean.reset_internet
-                    tap_action:
-                      action: more-info
-                    icon_tap_action:
-                      action: more-info
+            
+#              - type: weather-forecast
+#                title: "Weather"
+#                entity: weather.openweathermap
+#                show_current: true
+#                show_forecast: true
+#                forecast_type: hourly
 
 
           - type: custom:atomic-calendar
@@ -93,32 +83,69 @@ cards:
               cards:
                 - type: tile
                   vertical: true
-                  name: 'UbhiNAS HD1'
-                  icon: "${states['sensor.ubhinas_smart_status_drive_0_1'].state == 'OK' ? 'mdi:harddisk' : 'mdi:harddisk-remove'}"
-                  entity: sensor.ubhinas_smart_status_drive_0_1
-                  color: "${states['sensor.ubhinas_smart_status_drive_0_1'].state == 'OK' ? 'green' : 'red'}"
+                  name: 'UbhiNAS'
+                  icon: "${states['sensor.ubhinas_status'].state == 'good' ? 'mdi:nas' : 'mdi:harddisk-remove'}"
+                  entity: sensor.ubhinas_status
+                  color: "${states['sensor.ubhinas_status'].state == 'good' ? 'green' : 'red'}"
+                  hide_state: true
                 - type: tile
                   vertical: true
-                  name: 'UbhiNAS HD2'
-                  icon: "${states['sensor.ubhinas_smart_status_drive_0_2'].state == 'OK' ? 'mdi:harddisk' : 'mdi:harddisk-remove'}"
-                  entity: sensor.ubhinas_smart_status_drive_0_2
-                  color: "${states['sensor.ubhinas_smart_status_drive_0_2'].state == 'OK' ? 'green' : 'red'}"
+                  name: 'PlexNAS'
+                  icon: "${states['sensor.plexnas_status'].state == 'good' ? 'mdi:nas' : 'mdi:harddisk-remove'}"
+                  entity: sensor.plexnas_status
+                  color: "${states['sensor.plexnas_status'].state == 'good' ? 'green' : 'red'}"
+                  hide_state: true
+
                 - type: tile
                   vertical: true
-                  name: 'PlexNAS HD1'
-                  icon: "${states['sensor.plexnas_smart_status_drive_0_1'].state == 'OK' ? 'mdi:harddisk' : 'mdi:harddisk-remove'}"
-                  entity: sensor.plexnas_smart_status_drive_0_1
-                  color: "${states['sensor.plexnas_smart_status_drive_0_1'].state == 'OK' ? 'green' : 'red'}"
+                  entity: input_boolean.buzz_home
+                  tap_action:
+                    action: toggle
+                  icon_tap_action:
+                    action: toggle
                 - type: tile
                   vertical: true
-                  name: 'PlexNAS HD2'
-                  icon: "${states['sensor.plexnas_smart_status_drive_0_2'].state == 'OK' ? 'mdi:harddisk' : 'mdi:harddisk-remove'}"
-                  entity: sensor.plexnas_smart_status_drive_0_2
-                  color: "${states['sensor.plexnas_smart_status_drive_0_2'].state == 'OK' ? 'green' : 'red'}"
+                  entity: input_boolean.reset_internet
+                  tap_action:
+                    action: more-info
+                  icon_tap_action:
+                    action: more-info
+
+
+                # - type: tile
+                #   vertical: true
+                #   name: 'UbhiNAS HD1'
+                #   icon: "${states['sensor.ubhinas_smart_status_drive_0_1'].state == 'OK' ? 'mdi:harddisk' : 'mdi:harddisk-remove'}"
+                #   entity: sensor.ubhinas_smart_status_drive_0_1
+                #   color: "${states['sensor.ubhinas_smart_status_drive_0_1'].state == 'OK' ? 'green' : 'red'}"
+                # - type: tile
+                #   vertical: true
+                #   name: 'UbhiNAS HD2'
+                #   icon: "${states['sensor.ubhinas_smart_status_drive_0_2'].state == 'OK' ? 'mdi:harddisk' : 'mdi:harddisk-remove'}"
+                #   entity: sensor.ubhinas_smart_status_drive_0_2
+                #   color: "${states['sensor.ubhinas_smart_status_drive_0_2'].state == 'OK' ? 'green' : 'red'}"
+                # - type: tile
+                #   vertical: true
+                #   name: 'PlexNAS HD1'
+                #   icon: "${states['sensor.plexnas_smart_status_drive_0_1'].state == 'OK' ? 'mdi:harddisk' : 'mdi:harddisk-remove'}"
+                #   entity: sensor.plexnas_smart_status_drive_0_1
+                #   color: "${states['sensor.plexnas_smart_status_drive_0_1'].state == 'OK' ? 'green' : 'red'}"
+                # - type: tile
+                #   vertical: true
+                #   name: 'PlexNAS HD2'
+                #   icon: "${states['sensor.plexnas_smart_status_drive_0_2'].state == 'OK' ? 'mdi:harddisk' : 'mdi:harddisk-remove'}"
+                #   entity: sensor.plexnas_smart_status_drive_0_2
+                #   color: "${states['sensor.plexnas_smart_status_drive_0_2'].state == 'OK' ? 'green' : 'red'}"
 
       - type: horizontal-stack
         cards:
           - type: energy-distribution
+          - type: vertical-stack
+            cards:
+              - type: energy-date-selection
+              - type: energy-grid-neutrality-gauge
+              - type: energy-self-sufficiency-gauge
+              
           - type: vertical-stack
             cards:
               - type: "custom:config-template-card" # HOUSE ENERGY PROFILE BARS

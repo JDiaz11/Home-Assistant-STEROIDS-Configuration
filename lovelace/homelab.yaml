@@ -1,0 +1,64 @@
+
+title: HomeLab
+icon: mdi:information-slab-circle-outline
+cards:
+
+  - type: grid
+    title: HomeLab Server PDU
+    columns: 3
+    square: true
+    cards:
+
+      - type: button
+        name: HPDL380G9
+
+      - type: button
+        icon: mdi:power-socket-us
+        entity: switch.homelab_server_pdu_outlet_1
+        name: Outlet 1
+
+      - type: button
+        icon: mdi:power-socket-us
+        entity: switch.homelab_server_pdu_outlet_2
+        name: Outlet 2
+
+      - type: button
+        name: SuperMicro 01 X10DRU-i+
+
+      - type: button
+        icon: mdi:power-socket-us
+        entity: switch.homelab_server_pdu_outlet_3
+        name: Outlet 3
+
+      - type: button
+        icon: mdi:power-socket-us
+        entity: switch.homelab_server_pdu_outlet_4
+        name: Outlet 4
+
+      - type: button
+        name: SuperMicro 02 X10DRU-i+
+
+      - type: button
+        icon: mdi:power-socket-us
+        entity: switch.homelab_server_pdu_outlet_5
+        name: Outlet 5
+
+      - type: button
+        icon: mdi:power-socket-us
+        entity: switch.homelab_server_pdu_outlet_6
+        name: Outlet 6
+
+      - type: button
+        name: 
+
+      - type: button
+        icon: mdi:power-socket-us
+        entity: switch.homelab_server_pdu_outlet_7
+        name: Outlet 7
+
+      - type: button
+        icon: mdi:power-socket-us
+        entity: switch.homelab_server_pdu_outlet_8
+        name: Outlet 8
+
+      

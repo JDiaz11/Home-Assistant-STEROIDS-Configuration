@@ -29,7 +29,7 @@ class PerimeterLightsController(hass.Hass):
     self.holidays_us = sorted(hds_us.items())
     self.holidays_india = sorted(hds_india.items())
 
-    #self.check_holidays(None)
+    self.check_holidays(None)
     #self.run_every(self.check_holidays, "now", 5 * 60)
 
     

@@ -1,14 +1,15 @@
 entities:
 
+    # Sun
     - sun.sun
-    
+
+    # Day Time Sensors
     - binary_sensor.day
     - binary_sensor.night
     - binary_sensor.early_morning
     - binary_sensor.morning
     - binary_sensor.afternoon
     - binary_sensor.evening
-    
     - binary_sensor.sleep_time
     - binary_sensor.active_time
 
@@ -17,12 +18,15 @@ entities:
     - sensor.month_percent
     - sensor.data_allowance_till_date
     
+    # IPhone Sensors
     - device_tracker.funky_monkeys_iphone
     - device_tracker.ivavvays_iphone
 
+    # Garage Door Openers
     - cover.garage_door_big
     - cover.garage_door_small
 
+    # Lights and Fans
     - fan.master_bedroom_fan
     - light.living_room_light
     - light.master_bedroom_light_left
@@ -38,6 +42,7 @@ entities:
     - switch.upper_small_bedroom_light_fan
     - switch.upper_guest_bedroom_light_fan
 
+    # Home Theater Switch
     - switch.home_theatre_living_room
     - sensor.home_theatre_living_room_electric_consumption_a
     - sensor.home_theatre_living_room_electric_consumption_v
@@ -51,6 +56,7 @@ entities:
     - sensor.entryway_outlet_electric_consumption_kwh
     - sensor.entryway_outlet_power
 
+    # Thermostats
     - climate.thermostat_attic
 #    - sensor.thermostat_attic_temperature
     - sensor.thermostat_attic_humidity
@@ -79,6 +85,7 @@ entities:
 #    - sensor.thermostat_entertainment_room_temperature
     - sensor.thermostat_entertainment_room_humidity
 
+    # Doors and Windows
     - binary_sensor.entertainment_room_window_left
     - binary_sensor.entertainment_room_window_right
     - binary_sensor.garage_laundry_door
@@ -110,6 +117,7 @@ entities:
     - binary_sensor.welcome_window_left
     - binary_sensor.welcome_window_right
 
+    # UbhiNAS
     - sensor.ubhinas_status
     - sensor.ubhinas_smart_status_drive_0_1
     - sensor.ubhinas_smart_status_drive_0_2
@@ -131,6 +139,7 @@ entities:
     - sensor.ubhinas_network_link_eth0
     - sensor.ubhinas_network_link_eth1
 
+    # PlexNAS
     - sensor.plexnas_status
     - sensor.plexnas_smart_status_drive_0_1
     - sensor.plexnas_smart_status_drive_0_2
@@ -152,6 +161,7 @@ entities:
     - sensor.plexnas_network_link_eth0
     - sensor.plexnas_network_link_eth1
 
+    # System
     - sensor.processor_use
     - sensor.memory_use_percent
     - sensor.swap_use_percent
@@ -166,9 +176,12 @@ entities:
     - sensor.load_15m
     - sensor.last_boot
 
+    # Internet - Speedtest
     - sensor.speedtest_download
     - sensor.speedtest_upload
     - sensor.speedtest_ping
+
+    # Internet - Google WiFi
     - sensor.uptime
     - sensor.google_wifi_status
     - sensor.google_wifi_uptime
@@ -177,8 +190,10 @@ entities:
     - sensor.google_wifi_current_version
     - sensor.google_wifi_new_version
 
+    # Internet - Xfinity
     - sensor.xfinity_usage
 
+    # Garage Home Energy Meter
     - sensor.garage_home_energy_meter_gen5_electric_a_value
     - sensor.garage_home_energy_meter_gen5_electric_a_value_1
     - sensor.garage_home_energy_meter_gen5_electric_a_value_2
@@ -192,6 +207,7 @@ entities:
     - sensor.garage_home_energy_meter_gen5_electric_w_value_1
     - sensor.garage_home_energy_meter_gen5_electric_w_value_2
 
+    # Custom Power Sensors
     - sensor.solar_power
     - sensor.grid_power
     - sensor.grid_power_target
@@ -200,6 +216,7 @@ entities:
     - sensor.powerwall_power_name
     - sensor.house_load
 
+    # Forecast.Solar
     - sensor.power_production_next_12hours
     - sensor.power_production_next_24hours
     - sensor.power_production_next_hour
@@ -212,6 +229,7 @@ entities:
     - sensor.power_highest_peak_time_today
     - sensor.power_highest_peak_time_tomorrow
 
+    # OPower
     - sensor.current_bill_electric_cost_to_date
     - sensor.current_bill_electric_forecasted_cost
     - sensor.current_bill_electric_forecasted_usage
@@ -225,19 +243,35 @@ entities:
     - sensor.typical_monthly_gas_cost
     - sensor.typical_monthly_gas_usage 
 
-    - binary_sensor.grid_status
-    - sensor.powerwall_battery_now
-    - sensor.powerwall_charge
-    - sensor.powerwall_load_now
-    - sensor.powerwall_site_now
-    - sensor.powerwall_solar_now
+    # Home Energy Gateway
+    - binary_sensor.home_energy_gateway_grid_status
+    - binary_sensor.home_energy_gateway_grid_services_active
+    - binary_sensor.home_energy_gateway_status
+    - sensor.home_energy_gateway_charge
+    - binary_sensor.home_energy_gateway_charging
+    - sensor.home_energy_gateway_battery_power
+    - sensor.home_energy_gateway_battery_export
+    - sensor.home_energy_gateway_battery_import
+    - sensor.home_energy_gateway_load_export
+    - sensor.home_energy_gateway_load_import
+    - sensor.home_energy_gateway_load_power
+    - sensor.home_energy_gateway_site_export
+    - sensor.home_energy_gateway_site_import
+    - sensor.home_energy_gateway_site_power
+    - sensor.home_energy_gateway_solar_export
+    - sensor.home_energy_gateway_solar_import
+    - sensor.home_energy_gateway_solar_power
 
-    - sensor.powerwall_site_import
-    - sensor.powerwall_site_export
-    - sensor.powerwall_battery_export
-    - sensor.powerwall_battery_import
-    - sensor.powerwall_solar_export
+    # Home Energy Gateway TG119140001JGX
+    - sensor.home_energy_gateway_tg119140001jgx_battery_capacity
+    - sensor.home_energy_gateway_tg119140001jgx_battery_export
+    - sensor.home_energy_gateway_tg119140001jgx_battery_import
+    - sensor.home_energy_gateway_tg119140001jgx_battery_remaining
+    - sensor.home_energy_gateway_tg119140001jgx_battery_voltage
+    - sensor.home_energy_gateway_tg119140001jgx_grid_state
+    - sensor.home_energy_gateway_tg119140001jgx_power
 
+    # Flume
     - sensor.flume_sensor_home_24_hours
     - sensor.flume_sensor_home_30_days
     - sensor.flume_sensor_home_60_minutes

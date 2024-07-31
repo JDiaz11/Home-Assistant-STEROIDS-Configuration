@@ -126,25 +126,25 @@ alexa_talking_clock:
 #    turn_off_at_end_time: true
 #  debug: true
 
-auto_internet_rebooter:
-  module: auto_internet_rebooter
-  class: AutoInternetRebooter
-  internet:
-    download: sensor.speedtest_download
-    upload: sensor.speedtest_upload
-    ping: sensor.speedtest_ping
-    switch: switch.garage_internet_switch
-  thresholds:
-    download_mbps: 200
-    upload_mbps: 8.0
-    ping_ms: 40
-  schedule:
-    - "04:45:00"
-  notify:
-    alexa: media_player.kitchen_alexa
-    start_time: "08:00:00"
-    end_time: "21:30:00"
-  debug: true
+# auto_internet_rebooter:
+#   module: auto_internet_rebooter
+#   class: AutoInternetRebooter
+#   internet:
+#     download: sensor.speedtest_download
+#     upload: sensor.speedtest_upload
+#     ping: sensor.speedtest_ping
+#     switch: switch.garage_internet_switch
+#   thresholds:
+#     download_mbps: 200
+#     upload_mbps: 8.0
+#     ping_ms: 40
+#   schedule:
+#     - "04:45:00"
+#   notify:
+#     alexa: media_player.kitchen_alexa
+#     start_time: "08:00:00"
+#     end_time: "21:30:00"
+#   debug: true
 
 calendar_tv_reminders:
   module: calendar_tv_reminders

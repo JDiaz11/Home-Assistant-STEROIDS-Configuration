@@ -15,7 +15,7 @@ class HomeController(hass.Hass):
     self.bool_buzz_home = "input_boolean.buzz_home"
     self.bool_reset_internet = "input_boolean.reset_internet"
     self.garage_internet_switch = "switch.garage_internet_switch"
-    self.vacuum_jhadoo_pocha = "vacuum.jhadoo_pocha"
+    self.vacuum_jhadoo = "vacuum.jhadoo"
     self.kitchen_alexa = "media_player.kitchen_alexa"
     self.entryway_alexa = "media_player.entryway_alexa"
     self.upper_big_bedroom_alexa = "media_player.upper_big_bedroom_alexa"
@@ -26,19 +26,20 @@ class HomeController(hass.Hass):
     
     self.listen_state(self.buzz_kitchen, self.bool_buzz_home)
     self.listen_state(self.internet_reset, self.bool_reset_internet)
-    self.listen_state(self.vacuum_event_handler, self.vacuum_jhadoo_pocha)
+    self.listen_state(self.vacuum_event_handler, self.vacuum_jhadoo)
     
-    self.call_service("notify/alexa_media", data = {"type":"tts", "method":"speak"}, target = self.kitchen_alexa, message = """                
-    <speak>
-       Hi, your Home Assistant is ready to rock and roll!
-    </speak>
-    """)
+    #self.call_service("notify/alexa_media", data = {"type":"tts", "method":"speak"}, target = self.kitchen_alexa, message = """                
+    #<speak>
+    #   Hi, your Home Assistant is ready to rock and roll!
+    #</speak>
+    #""")
 
     #self.run_daily(self.reset_energy_meter, time(11, 59, 59))
     #self.run_hourly(self.play_music_entryway, time(datetime.now().hour, 0, 0))
 
     # EVERY HOUR
     self.run_every(self.solar_production_loss_alert, "now", 60 * 60, random_start = -5 * 60, random_end = 5 * 60)
+    # self.run_every(self.nas_error_alert, "now", 60 * 60, random_start = -5 * 60, random_end = 5 * 60)
     
     # EVERY 30 MINS
     #self.run_every(self.nas_hdd_error_alert, "now", 30 * 60, random_start = -3 * 60, random_end = 3 * 60)
@@ -89,7 +90,28 @@ class HomeController(hass.Hass):
   def vacuum_event_handler(self, entity, attribute, old, new, kwargs):
     if attribute == "state" and (old, new) in [("cleaning", "error")]:
       self.log("VACCUM ERROR HANDLER")
-      self.call_service("vacuum/start", entity_id = self.vacuum_jhadoo_pocha)
+      self.call_service("vacuum/start", entity_id = self.vacuum_jhadoo)
+
+
+  def nas_error_alert(self, kwargs):
+    self.log("NAS HEALTH EVALUATE")
+
+    ubhinas_not_ok = self.get_state("sensor.ubhinas_status") != "good"
+    plexnas_not_ok = self.get_state("sensor.plexnas_status") != "good"
+
+    if any([ubhinas_not_ok, plexnas_not_ok]):
+      self.log("NAS CRITIAL ERROR ALERT")
+
+      self.call_service("notify/alexa_media", data = {"type":"tts", "method":"speak"}, target = self.kitchen_alexa, message = """
+      <speak>
+        <amazon:emotion name="excited" intensity="medium">
+          Critical Emergency! One of NASS is critical. Time is of the essence, immediate action is required!
+        </amazon:emotion>
+      </speak>
+      """)
+
+      for device in self.notification_devices:
+        self.call_service(device, title = 'NAS ALERT: CRITICAL', message = 'One of your NAS has failed. Time is of the essence, immediate action is required!')
 
 
   def nas_hdd_error_alert(self, kwargs):

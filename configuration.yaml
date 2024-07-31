@@ -38,14 +38,12 @@ hassio:
 
 ios:
 
-# Enables a map showing the location of tracked devices
-map:
-
 # Track the sun
 sun:
 
 frontend: !include frontend.yaml
 sensor: !include cfg_sensor.yaml
+switch: !include cfg_switch.yaml
 binary_sensor: !include cfg_binary_sensor.yaml
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -137,6 +135,8 @@ lovelace:
   mode: yaml
   resources:
     - url: /hacsfiles/atomic_calendar/atomic_calendar.js
+      type: module
+    - url: /hacsfiles/clock-weather-card/clock-weather-card.js
       type: module
     #- url: /hacsfiles/atomic-calendar-revive/atomic-calendar-revive.js
     #  type: module
