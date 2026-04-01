@@ -2,6 +2,10 @@
 .cloud
 .storage
 deps
+tts
+backups
+custom_components
+www/community
 
 
 # Generic ignores
@@ -11,27 +15,51 @@ deps
 *.db-wal
 *.pyc
 *.pickle
+*.bak
+*.pem
+*.key
+*.cert
+*.lock
 ._*
+.DS_Store
 __pycache__
 
 
-# Specific file ignores
+# Secrets & auth
+secrets.yaml
 .google.token
 .uuid
+FLUME_TOKEN_FILE*
+*.token
+ip_bans.yaml
+auth_provider.homeassistant
+
+
+# Environment files
+.env
+.env.*
+
+
+# Device & integration state
 emulated_hue_ids.json
 google_calendars.yaml
 known_devices.yaml
 options.xml
+webostv.conf
+
+
+# ZWave / Zigbee
 OZW_Log.txt
 pyozw.sqlite
-secrets.yaml
-webostv.conf
 zwcfg_*
 zwscene.xml
+
+
+# Logs
 home-assistant.log
 home-assistant.log.1
 home-assistant.log.fault
-FLUME_TOKEN_FILE*
+
 
 # Ignore files created by IDE's
 .vscode

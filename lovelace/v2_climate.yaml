@@ -1,0 +1,295 @@
+title: Climate
+icon: mdi:thermometer
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+
+      # ════════════════════════════════════════════════════════════
+      #  STATUS CHIPS — quick temp overview
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mushroom-chips-card
+        alignment: center
+        chips:
+          - type: template
+            icon: mdi:home-thermometer
+            icon_color: cyan
+            content: >-
+              {% set temps = [
+                state_attr('climate.thermostat_living_room','current_temperature') | float(0),
+                state_attr('climate.thermostat_master_bedroom','current_temperature') | float(0),
+                state_attr('climate.thermostat_entertainment_room','current_temperature') | float(0),
+                state_attr('climate.thermostat_upper_big_bedroom','current_temperature') | float(0),
+                state_attr('climate.thermostat_upper_small_bedroom','current_temperature') | float(0),
+                state_attr('climate.thermostat_upper_guest_bedroom','current_temperature') | float(0)
+              ] | reject('eq', 0) | list %}
+              Avg {{ (temps | sum / temps | count) | round(0) }}°F
+          - type: template
+            icon: mdi:thermometer-chevron-up
+            icon_color: red
+            content: >-
+              {% set temps = {
+                'Master': state_attr('climate.thermostat_master_bedroom','current_temperature') | float(0),
+                'Living': state_attr('climate.thermostat_living_room','current_temperature') | float(0),
+                'Entertain': state_attr('climate.thermostat_entertainment_room','current_temperature') | float(0),
+                'Big BR': state_attr('climate.thermostat_upper_big_bedroom','current_temperature') | float(0),
+                'Small BR': state_attr('climate.thermostat_upper_small_bedroom','current_temperature') | float(0),
+                'Guest': state_attr('climate.thermostat_upper_guest_bedroom','current_temperature') | float(0),
+                'Attic': state_attr('climate.thermostat_attic','current_temperature') | float(0)
+              } %}
+              {% set max_val = temps.values() | max %}
+              {% for name, val in temps.items() if val == max_val %}
+              Warmest: {{ name }} {{ val | round(0) }}°F
+              {% endfor %}
+          - type: template
+            icon: mdi:thermometer-chevron-down
+            icon_color: blue
+            content: >-
+              {% set temps = {
+                'Master': state_attr('climate.thermostat_master_bedroom','current_temperature') | float(0),
+                'Living': state_attr('climate.thermostat_living_room','current_temperature') | float(0),
+                'Entertain': state_attr('climate.thermostat_entertainment_room','current_temperature') | float(0),
+                'Big BR': state_attr('climate.thermostat_upper_big_bedroom','current_temperature') | float(0),
+                'Small BR': state_attr('climate.thermostat_upper_small_bedroom','current_temperature') | float(0),
+                'Guest': state_attr('climate.thermostat_upper_guest_bedroom','current_temperature') | float(0),
+                'Attic': state_attr('climate.thermostat_attic','current_temperature') | float(0)
+              } %}
+              {% set min_val = temps.values() | reject('eq', 0) | min %}
+              {% for name, val in temps.items() if val == min_val %}
+              Coolest: {{ name }} {{ val | round(0) }}°F
+              {% endfor %}
+          - type: weather
+            entity: weather.openweathermap
+            show_conditions: true
+            show_temperature: true
+
+      # ════════════════════════════════════════════════════════════
+      #  THERMOSTAT CONTROLS — 2-column grid
+      # ════════════════════════════════════════════════════════════
+      - type: custom:layout-card
+        layout_type: custom:grid-layout
+        layout:
+          grid-template-columns: 1fr 1fr
+          grid-gap: 12px
+          mediaquery:
+            "(max-width: 800px)":
+              grid-template-columns: 1fr
+        cards:
+          - type: custom:mushroom-climate-card
+            entity: climate.thermostat_master_bedroom
+            show_temperature_control: true
+            collapsible_controls: false
+            name: Master Bedroom
+            icon: mdi:bed-king
+            card_mod:
+              style: |
+                ha-card {
+                  border-radius: 16px !important;
+                  border: 1px solid rgba(255,255,255,0.06) !important;
+                }
+                mushroom-shape-icon {
+                  {% set t = state_attr('climate.thermostat_master_bedroom','current_temperature') | float(0) %}
+                  --icon-color: {% if t < 65 %}var(--blue-color){% elif t < 73 %}var(--green-color){% elif t < 77 %}var(--orange-color){% else %}var(--red-color){% endif %} !important;
+                  --shape-color: {% if t < 65 %}rgba(var(--rgb-blue-color),0.2){% elif t < 73 %}rgba(var(--rgb-green-color),0.2){% elif t < 77 %}rgba(var(--rgb-orange-color),0.2){% else %}rgba(var(--rgb-red-color),0.2){% endif %} !important;
+                }
+
+          - type: custom:mushroom-climate-card
+            entity: climate.thermostat_living_room
+            show_temperature_control: true
+            collapsible_controls: false
+            name: Living Room
+            icon: mdi:sofa
+            card_mod:
+              style: |
+                ha-card {
+                  border-radius: 16px !important;
+                  border: 1px solid rgba(255,255,255,0.06) !important;
+                }
+                mushroom-shape-icon {
+                  {% set t = state_attr('climate.thermostat_living_room','current_temperature') | float(0) %}
+                  --icon-color: {% if t < 65 %}var(--blue-color){% elif t < 73 %}var(--green-color){% elif t < 77 %}var(--orange-color){% else %}var(--red-color){% endif %} !important;
+                  --shape-color: {% if t < 65 %}rgba(var(--rgb-blue-color),0.2){% elif t < 73 %}rgba(var(--rgb-green-color),0.2){% elif t < 77 %}rgba(var(--rgb-orange-color),0.2){% else %}rgba(var(--rgb-red-color),0.2){% endif %} !important;
+                }
+
+          - type: custom:mushroom-climate-card
+            entity: climate.thermostat_entertainment_room
+            show_temperature_control: true
+            collapsible_controls: false
+            name: Entertainment Room
+            icon: mdi:television
+            card_mod:
+              style: |
+                ha-card {
+                  border-radius: 16px !important;
+                  border: 1px solid rgba(255,255,255,0.06) !important;
+                }
+                mushroom-shape-icon {
+                  {% set t = state_attr('climate.thermostat_entertainment_room','current_temperature') | float(0) %}
+                  --icon-color: {% if t < 65 %}var(--blue-color){% elif t < 73 %}var(--green-color){% elif t < 77 %}var(--orange-color){% else %}var(--red-color){% endif %} !important;
+                  --shape-color: {% if t < 65 %}rgba(var(--rgb-blue-color),0.2){% elif t < 73 %}rgba(var(--rgb-green-color),0.2){% elif t < 77 %}rgba(var(--rgb-orange-color),0.2){% else %}rgba(var(--rgb-red-color),0.2){% endif %} !important;
+                }
+
+          - type: custom:mushroom-climate-card
+            entity: climate.thermostat_upper_big_bedroom
+            show_temperature_control: true
+            collapsible_controls: false
+            name: Upper Big Bedroom
+            icon: mdi:bed
+            card_mod:
+              style: |
+                ha-card {
+                  border-radius: 16px !important;
+                  border: 1px solid rgba(255,255,255,0.06) !important;
+                }
+                mushroom-shape-icon {
+                  {% set t = state_attr('climate.thermostat_upper_big_bedroom','current_temperature') | float(0) %}
+                  --icon-color: {% if t < 65 %}var(--blue-color){% elif t < 73 %}var(--green-color){% elif t < 77 %}var(--orange-color){% else %}var(--red-color){% endif %} !important;
+                  --shape-color: {% if t < 65 %}rgba(var(--rgb-blue-color),0.2){% elif t < 73 %}rgba(var(--rgb-green-color),0.2){% elif t < 77 %}rgba(var(--rgb-orange-color),0.2){% else %}rgba(var(--rgb-red-color),0.2){% endif %} !important;
+                }
+
+          - type: custom:mushroom-climate-card
+            entity: climate.thermostat_upper_small_bedroom
+            show_temperature_control: true
+            collapsible_controls: false
+            name: Upper Small Bedroom
+            icon: mdi:bed
+            card_mod:
+              style: |
+                ha-card {
+                  border-radius: 16px !important;
+                  border: 1px solid rgba(255,255,255,0.06) !important;
+                }
+                mushroom-shape-icon {
+                  {% set t = state_attr('climate.thermostat_upper_small_bedroom','current_temperature') | float(0) %}
+                  --icon-color: {% if t < 65 %}var(--blue-color){% elif t < 73 %}var(--green-color){% elif t < 77 %}var(--orange-color){% else %}var(--red-color){% endif %} !important;
+                  --shape-color: {% if t < 65 %}rgba(var(--rgb-blue-color),0.2){% elif t < 73 %}rgba(var(--rgb-green-color),0.2){% elif t < 77 %}rgba(var(--rgb-orange-color),0.2){% else %}rgba(var(--rgb-red-color),0.2){% endif %} !important;
+                }
+
+          - type: custom:mushroom-climate-card
+            entity: climate.thermostat_upper_guest_bedroom
+            show_temperature_control: true
+            collapsible_controls: false
+            name: Upper Guest Bedroom
+            icon: mdi:bed-outline
+            card_mod:
+              style: |
+                ha-card {
+                  border-radius: 16px !important;
+                  border: 1px solid rgba(255,255,255,0.06) !important;
+                }
+                mushroom-shape-icon {
+                  {% set t = state_attr('climate.thermostat_upper_guest_bedroom','current_temperature') | float(0) %}
+                  --icon-color: {% if t < 65 %}var(--blue-color){% elif t < 73 %}var(--green-color){% elif t < 77 %}var(--orange-color){% else %}var(--red-color){% endif %} !important;
+                  --shape-color: {% if t < 65 %}rgba(var(--rgb-blue-color),0.2){% elif t < 73 %}rgba(var(--rgb-green-color),0.2){% elif t < 77 %}rgba(var(--rgb-orange-color),0.2){% else %}rgba(var(--rgb-red-color),0.2){% endif %} !important;
+                }
+
+          - type: custom:mushroom-climate-card
+            entity: climate.thermostat_attic
+            show_temperature_control: true
+            collapsible_controls: false
+            name: Attic
+            icon: mdi:home-roof
+            card_mod:
+              style: |
+                ha-card {
+                  border-radius: 16px !important;
+                  border: 1px solid rgba(255,255,255,0.06) !important;
+                }
+                mushroom-shape-icon {
+                  {% set t = state_attr('climate.thermostat_attic','current_temperature') | float(0) %}
+                  --icon-color: {% if t < 65 %}var(--blue-color){% elif t < 73 %}var(--green-color){% elif t < 77 %}var(--orange-color){% else %}var(--red-color){% endif %} !important;
+                  --shape-color: {% if t < 65 %}rgba(var(--rgb-blue-color),0.2){% elif t < 73 %}rgba(var(--rgb-green-color),0.2){% elif t < 77 %}rgba(var(--rgb-orange-color),0.2){% else %}rgba(var(--rgb-red-color),0.2){% endif %} !important;
+                }
+
+      # ════════════════════════════════════════════════════════════
+      #  TEMPERATURE TRENDS — 24h comparison
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mini-graph-card
+        name: Temperature Trends (24h)
+        icon: mdi:chart-line
+        hours_to_show: 24
+        points_per_hour: 2
+        line_width: 2
+        animate: true
+        show:
+          legend: true
+          fill: false
+          labels: true
+        entities:
+          - entity: climate.thermostat_living_room
+            attribute: current_temperature
+            name: Living Room
+            color: '#38bdf8'
+          - entity: climate.thermostat_master_bedroom
+            attribute: current_temperature
+            name: Master BR
+            color: '#fb923c'
+          - entity: climate.thermostat_entertainment_room
+            attribute: current_temperature
+            name: Entertainment
+            color: '#c084fc'
+          - entity: climate.thermostat_upper_big_bedroom
+            attribute: current_temperature
+            name: Upper Big BR
+            color: '#f87171'
+          - entity: climate.thermostat_upper_small_bedroom
+            attribute: current_temperature
+            name: Upper Small BR
+            color: '#4ade80'
+          - entity: climate.thermostat_upper_guest_bedroom
+            attribute: current_temperature
+            name: Guest BR
+            color: '#fbbf24'
+          - entity: climate.thermostat_attic
+            attribute: current_temperature
+            name: Attic
+            color: '#f97316'
+        card_mod:
+          style: |
+            ha-card {
+              border-radius: 16px !important;
+              border: 1px solid rgba(255,255,255,0.06) !important;
+            }
+
+      # ════════════════════════════════════════════════════════════
+      #  HUMIDITY TRENDS — 24h comparison
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mini-graph-card
+        name: Humidity Trends (24h)
+        icon: mdi:water-percent
+        hours_to_show: 24
+        points_per_hour: 2
+        line_width: 2
+        animate: true
+        show:
+          legend: true
+          fill: false
+          labels: true
+        entities:
+          - entity: sensor.thermostat_living_room_humidity
+            name: Living Room
+            color: '#38bdf8'
+          - entity: sensor.thermostat_master_bedroom_humidity
+            name: Master BR
+            color: '#fb923c'
+          - entity: sensor.thermostat_entertainment_room_humidity
+            name: Entertainment
+            color: '#c084fc'
+          - entity: sensor.thermostat_upper_big_bedroom_humidity
+            name: Upper Big BR
+            color: '#f87171'
+          - entity: sensor.thermostat_upper_small_bedroom_humidity
+            name: Upper Small BR
+            color: '#4ade80'
+          - entity: sensor.thermostat_upper_guest_bedroom_humidity
+            name: Guest BR
+            color: '#fbbf24'
+          - entity: sensor.thermostat_attic_humidity
+            name: Attic
+            color: '#f97316'
+        card_mod:
+          style: |
+            ha-card {
+              border-radius: 16px !important;
+              border: 1px solid rgba(255,255,255,0.06) !important;
+            }

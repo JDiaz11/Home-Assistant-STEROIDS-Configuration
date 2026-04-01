@@ -5,8 +5,8 @@ panel: true
 cards:
   - type: 'custom:floorplan-card'
     config:
-      image: /local/floorplan/config/floorplan.svg?v=1.1.14
-      stylesheet: /local/floorplan/config/floorplan.css?v=1.1.14
+      image: /local/floorplan/config/floorplan.svg?v=3.5.1
+      stylesheet: /local/floorplan/config/floorplan.css?v=3.5.1
       rules:
         - name: Lights
           entities:
@@ -20,6 +20,13 @@ cards:
             - switch.entryway_outlet_switch
             - switch.backyard_light_left
             - switch.backyard_light_right
+            - switch.upper_small_bedroom_light_fan
+            - switch.upper_big_bedroom_bed_light
+            - switch.upper_guest_bedroom_light_fan
+            - switch.home_theatre_living_room
+            - switch.backyard_mesh_lights
+            - switch.entryway_festival_leds_01
+            - switch.entryway_festival_leds_02
           states:
             - state: 'on'
               class: 'red'
@@ -105,7 +112,7 @@ cards:
             - climate.thermostat_upper_guest_bedroom
             - climate.thermostat_upper_small_bedroom
             - climate.thermostat_upper_big_bedroom
-          text_template: '${entity.attributes.current_temperature ? entity.attributes.current_temperature : "undefined"}'
+          text_template: '${entity.attributes.current_temperature ? entity.attributes.current_temperature + "°" : "—"}'
           states:
             - state: 'heat'
               class: 'red'
@@ -124,18 +131,21 @@ cards:
             - sensor.thermostat_upper_guest_bedroom_temperature
             - sensor.thermostat_upper_small_bedroom_temperature
             - sensor.thermostat_upper_big_bedroom_temperature
-          text_template: '${entity.state ? entity.state.replace(/\s{2,}/g,"") + "°" : "0.0"}'
-      
+          text_template: '${entity.state ? parseFloat(entity.state).toFixed(1) + "°" : "—"}'
+
         - name: Internet States
           entities:
             - sensor.speedtest_download
             - sensor.speedtest_upload
             - sensor.speedtest_ping
-            - sensor.google_wifi_uptime
-          text_template: '${entity.state ? parseFloat(entity.state.replace(/\s{2,}/g,"")).toFixed(1) : "0.00"}'
-      
-        - name: Power States
+          text_template: '${entity.state ? parseFloat(entity.state.replace(/\s{2,}/g,"")).toFixed(1) : "—"}'
+
+        - name: Power (Watts)
           entities:
             - sensor.entryway_outlet_power
-            - sensor.hem_power
-          text_template: '${entity.state ? parseFloat(entity.state.replace(/\s{2,}/g,"")).toFixed(0) + "W" : "0.00"}'
+          text_template: '${entity.state ? parseFloat(entity.state).toFixed(0) + "W" : "—"}'
+
+        - name: Power (kW)
+          entities:
+            - sensor.house_load
+          text_template: '${entity.state ? parseFloat(entity.state).toFixed(1) + " kW" : "—"}'

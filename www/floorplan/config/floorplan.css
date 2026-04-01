@@ -1,226 +1,353 @@
-#floorplan  {
+/* ══════════════════════════════════════════
+   Floorplan v2 — Dark Mode + Glow Theme
+   ══════════════════════════════════════════ */
+
+#floorplan {
   padding: 10px;
 }
 
+/* ── Base Text ── */
+
 svg tspan {
-  fill: var(--primary-text-color);
+  fill: #cbd5e1;
+  font-family: 'Segoe UI', 'Oxygen', 'Ubuntu', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.3px;
 }
 
-/* Animation */
-
-.spinning {
-  animation-name: spin;
-  animation-duration: 5s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  transform-origin: 50% 50%;
-  transform-box: fill-box;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* SVG shapes */
+/* ── SVG Shapes ── */
 
 svg, svg * {
   vector-effect: non-scaling-stroke !important;
   pointer-events: all !important;
 }
 
-/* Hover over */
+/* ── Hover — cool blue highlight ── */
+
+.ha-entity {
+  transition: filter 0.25s ease, stroke 0.25s ease, fill 0.3s ease;
+  cursor: pointer;
+}
 
 .ha-entity:hover {
-  stroke: #03A9F4 !important;
-  stroke-width: 1px !important;
-  stroke-opacity: 1 !important;
-}
-
-/* Bootstrap succsss */
-
-.success-text {
-  fill: #3c763d !important;
-}
-
-.success-background, .success-text-background {
-  fill: #dff0d8 !important;
-  fill-opacity: 1 !important;
-  stroke: #d6e9c6 !important;
-  stroke-width: 1px !important;
-}
-
-/* Bootstrap info */
-
-.info-text {
-  fill: #31708f !important;
-}
-
-.info-background, .info-text-background {
-  fill: #d9edf7 !important;
-  fill-opacity: 1 !important;
-  stroke: #bce8f1 !important;
-  stroke-width: 1px !important;
-}
-
-/* Bootstrap warning */
-
-.warning-text {
-  fill: #8a6d3b !important;
-}
-
-.warning-background, .warning-text-background  {
-  fill: #fcf8e3 !important;
-  fill-opacity: 1 !important;
-  stroke: #faebcc !important;
-  stroke-width: 1px !important;
-}
-
-/* Bootstrap danger */
-
-.danger-text {
-  fill: #a94442 !important;
-}
-
-.danger-background, .danger-text-background {
-  fill: #f2dede !important;
-  fill-opacity: 1 !important;
-  stroke: #ebccd1 !important;
-  stroke-width: 1px !important;
-}
-
-/* Last motion entity */
-
-.last-motion {
-  stroke: #808080 !important;
-  stroke-width: 1px !important;
-  stroke-opacity: 1 !important;
-}
-
-/* Alarm Panel */
-
-.alarm-disarmed {
-  fill: #3c763d !important;
-}
-
-.alarm-armed {
-  fill: #8a6d3b !important;
-}
-
-/* Camera */
-
-.camera-idle {
-/*  fill: #B9CEF7 !important; */
-  fill: #6FAECE !important;
-}
-
-/* Light */
-
-.light-off {
-  fill: gray !important;
-}
-
-.light-on {
-  fill: red !important;
-}
-
-/* Doorbell */
-
-.doorbell-off {
-  fill: #C3B7F4 !important;
-}
-
-.doorbell-on {
-  fill: #F8D2B9 !important;
-}
-
-/* Temperature sensor */
-
-.temp-very-low-background {
-  fill: #d9edf7 !important;
-  fill-opacity: 1 !important;
-}
-
-.temp-below-average-background {
-  fill: #dcefe8 !important;
-  fill-opacity: 1 !important;
-}
-
-.temp-average-background {
-  fill: #dff0d8 !important;
-  fill-opacity: 1 !important;
-}
-
-.temp-very-high-background {
-  fill: #f2dede !important;
-  fill-opacity: 1 !important;
-}
-
-/* Media player */
-
-.squeezebox-off {
-  fill: #8AA8A7 !important;
-}
-
-.squeezebox-on {
-  fill: #2baaa6 !important;
-}
-
-/* Binary sensors */
-
-.binary-sensor-on {
-  fill: red !important;
-}
-
-.binary-sensor-off {
-  fill: blue !important;
-  transition: fill 5s ease;
+  stroke: #60a5fa !important;
+  stroke-width: 1.5px !important;
+  stroke-opacity: 0.9 !important;
+  filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.5)) !important;
 }
 
 
-/* Buttons */
+/* ══════════════════════════════════════════
+   3. ACTIVE ROOM LIGHTING
+   When a light is ON, the element glows warm amber
+   ══════════════════════════════════════════ */
 
-.background-on {
-  fill: #1ABA92 !important;
+/* Apply to the element AND all children (fixes <g> groups with inline fills) */
+.red,
+.red path,
+.red g,
+.red circle,
+.red rect {
+  fill: #fbbf24 !important;
+  transition: fill 0.4s ease, filter 0.4s ease;
 }
-
-.background-off {
-  fill: #d32f2f !important;
-}
-
-.background-on tspan {
-  fill: white !important;
-}
-
 
 .red {
-  fill: red !important;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6))
+          drop-shadow(0 0 20px rgba(251, 191, 36, 0.25)) !important;
 }
 
-.red2 {
-  fill: #ff6666 !important;
-}
-
-.red3 {
-  fill: #ffcccc !important;
-}
-
-.blue {
-  fill: blue !important;
-}
-
-.orange {
-  fill: orange !important;
-}
-
-.black {
-  fill: black !important;
+/* Inactive / Off / Closed — dim slate, blends into the dark background */
+.light-blue,
+.light-blue path,
+.light-blue g,
+.light-blue circle,
+.light-blue rect {
+  fill: #475569 !important;
+  transition: fill 0.5s ease, filter 0.5s ease;
 }
 
 .light-blue {
-  fill: #d9edf7 !important;
+  filter: none !important;
 }
+
+
+/* ══════════════════════════════════════════
+   Thermostat state colors
+   ══════════════════════════════════════════ */
+
+/* Cooling — icy blue glow */
+.blue, .blue path, .blue g {
+  fill: #38bdf8 !important;
+  transition: fill 0.4s ease;
+}
+.blue {
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5))
+          drop-shadow(0 0 16px rgba(56, 189, 248, 0.2)) !important;
+}
+
+/* Heat+Cool — warm orange glow */
+.orange, .orange path, .orange g {
+  fill: #fb923c !important;
+  transition: fill 0.4s ease;
+}
+.orange {
+  filter: drop-shadow(0 0 8px rgba(251, 146, 60, 0.5))
+          drop-shadow(0 0 16px rgba(251, 146, 60, 0.2)) !important;
+}
+
+/* Text elements */
+.black {
+  fill: #e2e8f0 !important;
+}
+
+
+/* ══════════════════════════════════════════
+   4. PULSING ANIMATIONS
+   Open doors/windows pulse to draw attention
+   ══════════════════════════════════════════ */
+
+/* Binary sensors — doors/windows OPEN: red pulse */
+.binary-sensor-on {
+  fill: #ef4444 !important;
+  filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.6)) !important;
+  animation: pulse-alert 2s ease-in-out infinite;
+}
+
+@keyframes pulse-alert {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.4));
+    opacity: 1;
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8));
+    opacity: 0.85;
+  }
+}
+
+/* Binary sensors — doors/windows CLOSED: barely visible */
+.binary-sensor-off {
+  fill: #475569 !important;
+  filter: none !important;
+  transition: fill 0.6s ease, filter 0.6s ease;
+}
+
+/* Garage doors OPEN: pulsing red */
+/* (shares .red class, but the pulse is on binary-sensor-on) */
+
+/* Camera idle — subtle indigo pulse */
+.camera-idle {
+  fill: #6366f1 !important;
+  fill-opacity: 0.12 !important;
+  stroke: #818cf8 !important;
+  stroke-width: 0.5px !important;
+  stroke-opacity: 0.5 !important;
+  animation: pulse-camera 3s ease-in-out infinite;
+}
+
+@keyframes pulse-camera {
+  0%, 100% {
+    stroke-opacity: 0.3;
+    fill-opacity: 0.08;
+  }
+  50% {
+    stroke-opacity: 0.7;
+    fill-opacity: 0.18;
+  }
+}
+
+
+/* ══════════════════════════════════════════
+   Fan — spinning animation
+   ══════════════════════════════════════════ */
+
+.spinning {
+  animation: spin 2.5s linear infinite;
+  transform-origin: 50% 50%;
+  transform-box: fill-box;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
+/* ══════════════════════════════════════════
+   Light states (explicit classes)
+   ══════════════════════════════════════════ */
+
+.light-on {
+  fill: #fbbf24 !important;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.65))
+          drop-shadow(0 0 22px rgba(251, 191, 36, 0.3)) !important;
+  transition: fill 0.4s ease, filter 0.4s ease;
+}
+
+.light-off {
+  fill: #475569 !important;
+  filter: none !important;
+  transition: fill 0.5s ease, filter 0.5s ease;
+}
+
+
+/* ══════════════════════════════════════════
+   6. MODERN TEXT STYLING
+   Sensor readouts with glow
+   ══════════════════════════════════════════ */
+
+/* All text elements — light and clean */
+svg text {
+  font-family: 'Segoe UI', 'Oxygen', 'Ubuntu', sans-serif;
+  font-weight: 300;
+}
+
+/* Temperature readouts, power, speed — brighter */
+svg text[id^="sensor."] tspan,
+svg text[id^="climate."] tspan {
+  fill: #f1f5f9 !important;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+
+/* ══════════════════════════════════════════
+   Doorbell
+   ══════════════════════════════════════════ */
+
+.doorbell-off {
+  fill: #4b5563 !important;
+}
+
+.doorbell-on {
+  fill: #fcd34d !important;
+  filter: drop-shadow(0 0 8px rgba(252, 211, 77, 0.6)) !important;
+  animation: pulse-doorbell 1s ease-in-out infinite;
+}
+
+@keyframes pulse-doorbell {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(252, 211, 77, 0.4)); }
+  50%      { filter: drop-shadow(0 0 14px rgba(252, 211, 77, 0.9)); }
+}
+
+
+/* ══════════════════════════════════════════
+   Temperature backgrounds
+   ══════════════════════════════════════════ */
+
+.temp-very-low-background {
+  fill: #1e3a5f !important;
+  fill-opacity: 0.5 !important;
+}
+
+.temp-below-average-background {
+  fill: #1a3a2a !important;
+  fill-opacity: 0.5 !important;
+}
+
+.temp-average-background {
+  fill: #1a3322 !important;
+  fill-opacity: 0.5 !important;
+}
+
+.temp-very-high-background {
+  fill: #5f1e1e !important;
+  fill-opacity: 0.5 !important;
+}
+
+
+/* ══════════════════════════════════════════
+   Media player
+   ══════════════════════════════════════════ */
+
+.squeezebox-off {
+  fill: #4b5563 !important;
+}
+
+.squeezebox-on {
+  fill: #14b8a6 !important;
+  filter: drop-shadow(0 0 6px rgba(20, 184, 166, 0.5)) !important;
+}
+
+
+/* ══════════════════════════════════════════
+   Motion / Alarm / Buttons
+   ══════════════════════════════════════════ */
+
+.last-motion {
+  stroke: #a78bfa !important;
+  stroke-width: 1px !important;
+  stroke-opacity: 0.7 !important;
+  animation: pulse-camera 3s ease-in-out infinite;
+}
+
+.alarm-disarmed {
+  fill: #22c55e !important;
+  filter: drop-shadow(0 0 4px rgba(34, 197, 94, 0.4)) !important;
+}
+
+.alarm-armed {
+  fill: #eab308 !important;
+  filter: drop-shadow(0 0 4px rgba(234, 179, 8, 0.4)) !important;
+}
+
+.background-on {
+  fill: #10b981 !important;
+}
+
+.background-off {
+  fill: #4b5563 !important;
+}
+
+.background-on tspan {
+  fill: #ffffff !important;
+}
+
+
+/* ══════════════════════════════════════════
+   Bootstrap alerts (compatibility)
+   ══════════════════════════════════════════ */
+
+.success-text        { fill: #4ade80 !important; }
+.success-background,
+.success-text-background {
+  fill: #14532d !important;
+  fill-opacity: 0.7 !important;
+  stroke: #166534 !important;
+  stroke-width: 0.75px !important;
+}
+
+.info-text           { fill: #60a5fa !important; }
+.info-background,
+.info-text-background {
+  fill: #1e3a5f !important;
+  fill-opacity: 0.7 !important;
+  stroke: #1e40af !important;
+  stroke-width: 0.75px !important;
+}
+
+.warning-text        { fill: #fbbf24 !important; }
+.warning-background,
+.warning-text-background {
+  fill: #4a3728 !important;
+  fill-opacity: 0.7 !important;
+  stroke: #92400e !important;
+  stroke-width: 0.75px !important;
+}
+
+.danger-text         { fill: #f87171 !important; }
+.danger-background,
+.danger-text-background {
+  fill: #5f1e1e !important;
+  fill-opacity: 0.7 !important;
+  stroke: #991b1b !important;
+  stroke-width: 0.75px !important;
+}
+
+
+/* ══════════════════════════════════════════
+   Utility
+   ══════════════════════════════════════════ */
+
+.red2  { fill: #f87171 !important; }
+.red3  { fill: #fca5a5 !important; }

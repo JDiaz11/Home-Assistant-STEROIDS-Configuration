@@ -13,6 +13,8 @@ entities:
     - binary_sensor.sleep_time
     - binary_sensor.active_time
 
+
+    # Internet Data Usage Supporting Sensors
     - sensor.month_days_in_current
     - sensor.month_current_day
     - sensor.month_percent
@@ -31,6 +33,7 @@ entities:
     - light.living_room_light
     - light.master_bedroom_light_left
     - light.master_bedroom_light_right
+    - light.upper_small_bedroom_light
     - switch.backyard_light_left
     - switch.backyard_light_right
     - switch.entryway_light
@@ -58,31 +61,20 @@ entities:
 
     # Thermostats
     - climate.thermostat_attic
-#    - sensor.thermostat_attic_temperature
-    - sensor.thermostat_attic_humidity
-
     - climate.thermostat_master_bedroom
-#    - sensor.thermostat_master_bedroom_temperature
-    - sensor.thermostat_master_bedroom_humidity
-
     - climate.thermostat_living_room
-#    - sensor.thermostat_living_room_temperature
-    - sensor.thermostat_living_room_humidity
-
     - climate.thermostat_upper_big_bedroom
-#    - sensor.thermostat_upper_big_bedroom_temperature
-    - sensor.thermostat_upper_big_bedroom_humidity
-
     - climate.thermostat_upper_small_bedroom
-#    - sensor.thermostat_upper_small_bedroom_temperature
-    - sensor.thermostat_upper_small_bedroom_humidity
-
     - climate.thermostat_upper_guest_bedroom
-#    - sensor.thermostat_upper_guest_bedroom_temperature
-    - sensor.thermostat_upper_guest_bedroom_humidity
-
     - climate.thermostat_entertainment_room
-#    - sensor.thermostat_entertainment_room_temperature
+
+    # Humidity (yes, they are separate sensors)
+    - sensor.thermostat_attic_humidity
+    - sensor.thermostat_master_bedroom_humidity
+    - sensor.thermostat_living_room_humidity
+    - sensor.thermostat_upper_big_bedroom_humidity
+    - sensor.thermostat_upper_small_bedroom_humidity
+    - sensor.thermostat_upper_guest_bedroom_humidity
     - sensor.thermostat_entertainment_room_humidity
 
     # Doors and Windows
@@ -176,19 +168,60 @@ entities:
     - sensor.load_15m
     - sensor.last_boot
 
+    # HP DL380 Gen9
+    - sensor.hp_ilo_power_status
+    - sensor.hp_ilo_power_reading
+    - sensor.hp_ilo_power_on_time
+    - sensor.hp_ilo_uid_status
+    - sensor.hp_ilo_health_bios_hardware
+    - sensor.hp_ilo_health_processor_status
+    - sensor.hp_ilo_health_storage_status
+    - sensor.hp_ilo_health_temperature_status
+    - sensor.hp_ilo_health_fan_status
+    - sensor.hp_ilo_health_network_status
+    - sensor.hp_ilo_health_memory_status
+    - sensor.hp_ilo_temp_inlet
+    - sensor.hp_ilo_temp_cpu1
+    - sensor.hp_ilo_temp_cpu2
+
+    # SuperMicro X10DRU-i+ 01
+    - switch.supermicro_01_server_chassis
+    - sensor.supermicro_01_state
+    - sensor.supermicro_01_cpu1_temp
+    - sensor.supermicro_01_cpu2_temp
+    - sensor.supermicro_01_system_temp
+    - sensor.supermicro_01_mb_nic_temp1
+    - sensor.supermicro_01_mb_nic_temp2
+    - sensor.supermicro_01_pch_temp
+    - sensor.supermicro_01_peripheral_temp
+    - sensor.supermicro_01_vcpu1vrm_temp
+    - sensor.supermicro_01_vcpu2vrm_temp
+    - sensor.supermicro_01_vmemabvrm_temp
+    - sensor.supermicro_01_vmemcdvrm_temp
+    - sensor.supermicro_01_vmemefvrm_temp
+    - sensor.supermicro_01_vmemghvrm_temp
+
+    # SuperMicro X10DRU-i+ 02
+    - switch.supermicro_02_server_chassis
+    - sensor.supermicro_02_state
+    - sensor.supermicro_02_cpu1_temp
+    - sensor.supermicro_02_cpu2_temp
+    - sensor.supermicro_02_system_temp
+    - sensor.supermicro_02_mb_nic_temp1
+    - sensor.supermicro_02_mb_nic_temp2
+    - sensor.supermicro_02_pch_temp
+    - sensor.supermicro_02_peripheral_temp
+    - sensor.supermicro_02_vcpu1vrm_temp
+    - sensor.supermicro_02_vcpu2vrm_temp
+    - sensor.supermicro_02_vmemabvrm_temp
+    - sensor.supermicro_02_vmemcdvrm_temp
+    - sensor.supermicro_02_vmemefvrm_temp
+    - sensor.supermicro_02_vmemghvrm_temp
+
     # Internet - Speedtest
     - sensor.speedtest_download
     - sensor.speedtest_upload
     - sensor.speedtest_ping
-
-    # Internet - Google WiFi
-    - sensor.uptime
-    - sensor.google_wifi_status
-    - sensor.google_wifi_uptime
-    - sensor.google_wifi_last_restart
-    - sensor.google_wifi_local_ip
-    - sensor.google_wifi_current_version
-    - sensor.google_wifi_new_version
 
     # Internet - Xfinity
     - sensor.xfinity_usage
@@ -271,13 +304,3 @@ entities:
     - sensor.home_energy_gateway_tg119140001jgx_grid_state
     - sensor.home_energy_gateway_tg119140001jgx_power
 
-    # Flume
-    - sensor.flume_sensor_home_24_hours
-    - sensor.flume_sensor_home_30_days
-    - sensor.flume_sensor_home_60_minutes
-    - sensor.flume_sensor_home_current
-    - sensor.flume_sensor_home_current_day
-    - sensor.flume_sensor_home_current_month
-    - sensor.flume_sensor_home_current_week
-    - binary_sensor.flume_sensor_home_high_flow
-    - binary_sensor.flume_sensor_home_leak_detected

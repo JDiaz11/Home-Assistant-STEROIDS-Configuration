@@ -221,51 +221,51 @@ cards:
                   - type: energy-usage-graph
                     title: 'Home Energy'
           
-      - type: horizontal-stack
-        cards:
-          - type: energy-water-graph
-            title: 'Water Usage'
-          - type: horizontal-stack
-            cards:
-              - type: gauge
-                entity: sensor.flume_sensor_home_current
-                name: "Current"
-                needle: true
-                min: 0
-                max: 5
-                segments:
-                  - from: 0
-                    color: '#43a047'
-                  - from: 2
-                    color: '#ffa600'
-                  - from: 4
-                    color: '#db4437'
-              - type: gauge
-                entity: sensor.flume_sensor_home_60_minutes
-                name: "Last Hour"
-                needle: true
-                min: 0
-                max: 15
-                segments:
-                  - from: 0
-                    color: '#43a047'
-                  - from: 8
-                    color: '#ffa600'
-                  - from: 12
-                    color: '#db4437'
-              - type: gauge
-                entity: sensor.flume_sensor_home_current_day
-                name: "Today"
-                needle: true
-                min: 0
-                max: 200
-                segments:
-                  - from: 0
-                    color: '#43a047'
-                  - from: 150
-                    color: '#ffa600'
-                  - from: 175
-                    color: '#db4437'
+      # - type: horizontal-stack
+      #   cards:
+      #     - type: energy-water-graph
+      #       title: 'Water Usage'
+      #     - type: horizontal-stack
+      #       cards:
+      #         - type: gauge
+      #           entity: sensor.flume_sensor_home_current
+      #           name: "Current"
+      #           needle: true
+      #           min: 0
+      #           max: 5
+      #           segments:
+      #             - from: 0
+      #               color: '#43a047'
+      #             - from: 2
+      #               color: '#ffa600'
+      #             - from: 4
+      #               color: '#db4437'
+      #         - type: gauge
+      #           entity: sensor.flume_sensor_home_60_minutes
+      #           name: "Last Hour"
+      #           needle: true
+      #           min: 0
+      #           max: 15
+      #           segments:
+      #             - from: 0
+      #               color: '#43a047'
+      #             - from: 8
+      #               color: '#ffa600'
+      #             - from: 12
+      #               color: '#db4437'
+      #         - type: gauge
+      #           entity: sensor.flume_sensor_home_current_day
+      #           name: "Today"
+      #           needle: true
+      #           min: 0
+      #           max: 200
+      #           segments:
+      #             - from: 0
+      #               color: '#43a047'
+      #             - from: 150
+      #               color: '#ffa600'
+      #             - from: 175
+      #               color: '#db4437'
 
       - type: horizontal-stack
         cards:
@@ -332,19 +332,19 @@ cards:
                   - from: 80
                     color: '#db4437'
 
-              - type: gauge
-                entity: sensor.google_wifi_uptime
-                name: "Days"
-                needle: true
-                min: 0
-                max: 15
-                segments:
-                  - from: 0
-                    color: '#43a047'
-                  - from: 5
-                    color: '#ffa600'
-                  - from: 10
-                    color: '#db4437'
+              # - type: gauge
+              #   entity: sensor.google_wifi_uptime
+              #   name: "Days"
+              #   needle: true
+              #   min: 0
+              #   max: 15
+              #   segments:
+              #     - from: 0
+              #       color: '#43a047'
+              #     - from: 5
+              #       color: '#ffa600'
+              #     - from: 10
+              #       color: '#db4437'
 
               - type: gauge
                 entity: sensor.speedtest_download

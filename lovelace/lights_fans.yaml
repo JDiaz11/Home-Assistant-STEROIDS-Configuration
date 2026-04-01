@@ -45,7 +45,7 @@ cards:
         entity: switch.upper_small_bedroom_light_fan
       - type: light
         icon: mdi:floor-lamp-torchiere
-        entity: light.upper_small_bedroom_bed_light
+        entity: light.upper_small_bedroom_light
 
     - type: horizontal-stack
       cards:

@@ -1,0 +1,400 @@
+title: Controls
+icon: mdi:lightbulb-group
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+
+      # ════════════════════════════════════════════════════════════
+      #  STATUS CHIPS — what's currently active
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mushroom-chips-card
+        alignment: center
+        chips:
+          - type: template
+            icon: mdi:lightbulb-on
+            icon_color: yellow
+            content: >-
+              {% set on = states.light | selectattr('state','eq','on') | list | count %}
+              {% set on = on + (states.switch | selectattr('state','eq','on')
+                | rejectattr('entity_id','search','homelab|supermicro|pdu')
+                | list | count) %}
+              {{ on }} lights on
+          - type: template
+            icon: mdi:fan
+            icon_color: cyan
+            content: >-
+              {% set on = states.fan | selectattr('state','eq','on') | list | count %}
+              {{ on }} fan{{ 's' if on != 1 }} on
+          - type: template
+            icon: mdi:music
+            icon_color: purple
+            content: >-
+              {% set playing = states.media_player | selectattr('state','eq','playing') | list | count %}
+              {{ playing }} playing
+
+      # ════════════════════════════════════════════════════════════
+      #  DOWNSTAIRS LIGHTS
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mushroom-title-card
+        title: Downstairs
+        subtitle: Lights & Switches
+
+      - type: custom:layout-card
+        layout_type: custom:grid-layout
+        layout:
+          grid-template-columns: repeat(5, 1fr)
+          grid-gap: 10px
+          mediaquery:
+            "(max-width: 1200px)":
+              grid-template-columns: repeat(3, 1fr)
+            "(max-width: 600px)":
+              grid-template-columns: 1fr 1fr
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.living_room_light
+            name: Living Room
+            use_light_color: true
+            show_brightness_control: true
+            show_color_temp_control: true
+            icon: mdi:chandelier
+            layout: vertical
+            card_mod: &card_style
+              style: |
+                ha-card {
+                  border-radius: 16px !important;
+                  border: 1px solid rgba(255,255,255,0.06) !important;
+                }
+
+          - type: custom:mushroom-entity-card
+            entity: switch.kitchen_light
+            name: Kitchen
+            icon: mdi:wall-sconce-flat
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.welcome_room_light
+            name: Welcome Room
+            icon: mdi:chandelier
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.home_theatre_living_room
+            name: Home Theater
+            icon: mdi:speaker-wireless
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.living_room_doorbell
+            name: Doorbell
+            icon: mdi:doorbell-video
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+      # ════════════════════════════════════════════════════════════
+      #  MASTER BEDROOM
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mushroom-title-card
+        title: Master Bedroom
+
+      - type: custom:layout-card
+        layout_type: custom:grid-layout
+        layout:
+          grid-template-columns: repeat(5, 1fr)
+          grid-gap: 10px
+          mediaquery:
+            "(max-width: 1200px)":
+              grid-template-columns: repeat(3, 1fr)
+            "(max-width: 600px)":
+              grid-template-columns: 1fr 1fr
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.master_bedroom_light_left
+            name: Bed Light Left
+            use_light_color: true
+            show_brightness_control: true
+            icon: mdi:floor-lamp
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-light-card
+            entity: light.master_bedroom_light_right
+            name: Bed Light Right
+            use_light_color: true
+            show_brightness_control: true
+            icon: mdi:floor-lamp
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-fan-card
+            entity: fan.master_bedroom_fan_dimmer
+            name: Ceiling Fan
+            icon: mdi:fan
+            show_percentage_control: true
+            layout: vertical
+            card_mod: *card_style
+
+      # ════════════════════════════════════════════════════════════
+      #  UPSTAIRS
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mushroom-title-card
+        title: Upstairs
+
+      - type: custom:layout-card
+        layout_type: custom:grid-layout
+        layout:
+          grid-template-columns: repeat(5, 1fr)
+          grid-gap: 10px
+          mediaquery:
+            "(max-width: 1200px)":
+              grid-template-columns: repeat(3, 1fr)
+            "(max-width: 600px)":
+              grid-template-columns: 1fr 1fr
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: switch.upper_guest_bedroom_light_fan
+            name: Guest BR Fan/Light
+            icon: mdi:ceiling-fan-light
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.upper_small_bedroom_light_fan
+            name: Small BR Fan/Light
+            icon: mdi:ceiling-fan-light
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-light-card
+            entity: light.upper_small_bedroom_light
+            name: Small BR Light
+            icon: mdi:floor-lamp-torchiere
+            use_light_color: true
+            show_brightness_control: true
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.upper_big_bedroom_bed_light
+            name: Big BR Light
+            icon: mdi:lamp
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+      # ════════════════════════════════════════════════════════════
+      #  OUTDOOR
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mushroom-title-card
+        title: Outdoor
+        subtitle: Exterior Lights & Outlets
+
+      - type: custom:layout-card
+        layout_type: custom:grid-layout
+        layout:
+          grid-template-columns: repeat(5, 1fr)
+          grid-gap: 10px
+          mediaquery:
+            "(max-width: 1200px)":
+              grid-template-columns: repeat(4, 1fr)
+            "(max-width: 600px)":
+              grid-template-columns: 1fr 1fr
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: switch.entryway_light
+            name: Entryway
+            icon: mdi:coach-lamp
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.backyard_light_left
+            name: Backyard L
+            icon: mdi:coach-lamp
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.backyard_light_right
+            name: Backyard R
+            icon: mdi:coach-lamp
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.side_deck_light
+            name: Side Deck
+            icon: mdi:coach-lamp
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.backyard_mesh_lights
+            name: Mesh Lights
+            icon: mdi:string-lights
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.entryway_festival_leds_01
+            name: Festival LEDs 1
+            icon: mdi:led-strip-variant
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.entryway_festival_leds_02
+            name: Festival LEDs 2
+            icon: mdi:led-strip-variant
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.entryway_outlet_switch
+            name: Outlet
+            icon: mdi:power-socket-us
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+          - type: custom:mushroom-entity-card
+            entity: switch.backyard_gym_lights
+            name: Gym Lights
+            icon: mdi:dumbbell
+            tap_action:
+              action: toggle
+            layout: vertical
+            card_mod: *card_style
+
+      # ════════════════════════════════════════════════════════════
+      #  MEDIA PLAYERS — Alexa devices
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mushroom-title-card
+        title: Media
+        subtitle: Alexa Devices
+
+      - type: custom:layout-card
+        layout_type: custom:grid-layout
+        layout:
+          grid-template-columns: 1fr 1fr 1fr
+          grid-gap: 10px
+          mediaquery:
+            "(max-width: 1000px)":
+              grid-template-columns: 1fr 1fr
+            "(max-width: 600px)":
+              grid-template-columns: 1fr
+        cards:
+          - type: custom:mushroom-media-player-card
+            entity: media_player.kitchen_alexa
+            name: Kitchen
+            use_media_info: true
+            show_volume_level: true
+            media_controls:
+              - on_off
+              - play_pause_stop
+              - next
+            volume_controls:
+              - volume_buttons
+            layout: horizontal
+            card_mod: *card_style
+
+          - type: custom:mushroom-media-player-card
+            entity: media_player.master_bedroom_alexa
+            name: Master Bedroom
+            use_media_info: true
+            show_volume_level: true
+            media_controls:
+              - on_off
+              - play_pause_stop
+              - next
+            volume_controls:
+              - volume_buttons
+            layout: horizontal
+            card_mod: *card_style
+
+          - type: custom:mushroom-media-player-card
+            entity: media_player.master_bathroom_alexa
+            name: Master Bath
+            use_media_info: true
+            show_volume_level: true
+            media_controls:
+              - on_off
+              - play_pause_stop
+              - next
+            volume_controls:
+              - volume_buttons
+            layout: horizontal
+            card_mod: *card_style
+
+          - type: custom:mushroom-media-player-card
+            entity: media_player.upper_big_bedroom_alexa
+            name: Upper Big BR
+            use_media_info: true
+            show_volume_level: true
+            media_controls:
+              - on_off
+              - play_pause_stop
+              - next
+            volume_controls:
+              - volume_buttons
+            layout: horizontal
+            card_mod: *card_style
+
+          - type: custom:mushroom-media-player-card
+            entity: media_player.upper_small_bedroom_alexa
+            name: Upper Small BR
+            use_media_info: true
+            show_volume_level: true
+            media_controls:
+              - on_off
+              - play_pause_stop
+              - next
+            volume_controls:
+              - volume_buttons
+            layout: horizontal
+            card_mod: *card_style
+
+          - type: custom:mushroom-media-player-card
+            entity: media_player.upper_guest_bedroom_alexa
+            name: Guest BR
+            use_media_info: true
+            show_volume_level: true
+            media_controls:
+              - on_off
+              - play_pause_stop
+              - next
+            volume_controls:
+              - volume_buttons
+            layout: horizontal
+            card_mod: *card_style

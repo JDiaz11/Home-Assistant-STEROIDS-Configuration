@@ -1,6 +1,16 @@
 title: Outdoor Cams
 icon: mdi:cctv
 cards:
+
+  - type: button
+    icon: mdi:cctv
+    entity: switch.homelab_server_pdu_outlet_8
+    name: NVR
+    tap_action:
+      action: toggle
+      confirmation:
+        text: "Are you sure you want to toggle the power for the NVR?"
+
   - type: picture-entity
     name: "Living Room"
     entity: camera.living_room_camera

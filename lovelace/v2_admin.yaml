@@ -1,0 +1,306 @@
+title: Admin
+icon: mdi:wrench
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+
+      # ════════════════════════════════════════════════════════════
+      #  PEOPLE
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mushroom-title-card
+        title: People
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: device_tracker.funky_monkey_s_iphone
+            layout: horizontal
+            card_mod: &admin_card
+              style: |
+                ha-card {
+                  border-radius: 16px !important;
+                  border: 1px solid rgba(255,255,255,0.06) !important;
+                }
+          - type: custom:mushroom-entity-card
+            entity: device_tracker.ivavvays_iphone
+            layout: horizontal
+            card_mod: *admin_card
+
+      # ════════════════════════════════════════════════════════════
+      #  ENERGY & SOLAR RAW DATA
+      # ════════════════════════════════════════════════════════════
+      - type: horizontal-stack
+        cards:
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Solar Forecast
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.solar_forecast
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Home Energy
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.home_energy
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Water (ACWD)
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.home_water
+
+      # ════════════════════════════════════════════════════════════
+      #  ROOMS — entity debug (2-column layout)
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mushroom-title-card
+        title: Room Entities
+        subtitle: Debug view
+
+      - type: custom:layout-card
+        layout_type: custom:grid-layout
+        layout:
+          grid-template-columns: 1fr 1fr
+          grid-gap: 10px
+          mediaquery:
+            "(max-width: 800px)":
+              grid-template-columns: 1fr
+        cards:
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Living Room
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.living_room
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Kitchen
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.kitchen
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Master Bedroom
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.master_bedroom
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Master Bathroom
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.master_bathroom
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Entertainment Room
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.entertainment_room
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Welcome Room
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.welcome_room
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Upper Big Bedroom
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.upper_big_bedroom
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Upper Small Bedroom
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.upper_small_bedroom
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Upper Guest Bedroom
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.upper_guest_bedroom
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Attic
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.attic
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Entryway
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.entryway
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Garage
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.garage
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Backyard
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.backyard
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Side Deck
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.side_deck
+
+      # ════════════════════════════════════════════════════════════
+      #  INFRASTRUCTURE RAW DATA
+      # ════════════════════════════════════════════════════════════
+      - type: custom:mushroom-title-card
+        title: Infrastructure Entities
+
+      - type: custom:layout-card
+        layout_type: custom:grid-layout
+        layout:
+          grid-template-columns: 1fr 1fr
+          grid-gap: 10px
+          mediaquery:
+            "(max-width: 800px)":
+              grid-template-columns: 1fr
+        cards:
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: UbhiNAS
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.ubhinas
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: PlexNAS
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.plexnas
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: System Monitor
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.system_monitor
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Internet
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.internet
+
+          - type: custom:auto-entities
+            card:
+              type: entities
+              state_color: true
+              title: Time & Date
+              show_header_toggle: false
+              card_mod: *admin_card
+            filter:
+              include:
+                - group: group.time_date

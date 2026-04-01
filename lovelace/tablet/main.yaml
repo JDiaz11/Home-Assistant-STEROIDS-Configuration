@@ -6,8 +6,7 @@ cards:
   - type: vertical-stack
     cards:
 
-      - type: weather-forecast
-        title: "Weather"
+      - type: custom:clock-weather-card
         entity: weather.openweathermap
 
       - type: horizontal-stack
