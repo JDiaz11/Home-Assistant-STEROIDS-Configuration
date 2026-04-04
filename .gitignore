@@ -1,11 +1,13 @@
 # Directory (contents) ignores
 .cloud
 .storage
+.cache
 deps
 tts
 backups
 custom_components
 www/community
+
 
 
 # Generic ignores

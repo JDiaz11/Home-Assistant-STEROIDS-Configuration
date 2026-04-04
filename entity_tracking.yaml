@@ -36,6 +36,8 @@ entities:
     - light.upper_small_bedroom_light
     - switch.backyard_light_left
     - switch.backyard_light_right
+    - switch.backyard_mesh_lights
+    - switch.backyard_gym_lights
     - switch.entryway_light
     - switch.kitchen_light
     - switch.side_deck_light

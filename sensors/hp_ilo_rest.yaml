@@ -1,0 +1,115 @@
+# HP iLO Redfish REST Sensors (DL380 Gen9 / iLO 4)
+# Replaces the synchronous hp_ilo platform with async REST calls.
+
+# ── System info + health ──
+- resource: !secret hp_server_ilo_redfish_systems_url
+  scan_interval: 120
+  timeout: 10
+  verify_ssl: false
+  authentication: basic
+  username: !secret hp_server_ilo_username
+  password: !secret hp_server_ilo_password
+  headers:
+    Accept: "application/json"
+  sensor:
+    - name: "HP iLO Server Name"
+      unique_id: hp_ilo_server_name
+      value_template: "{{ value_json.HostName | default('unknown') }}"
+
+    - name: "HP iLO Power Status"
+      unique_id: hp_ilo_power_status
+      value_template: "{{ value_json.PowerState | default('unknown') }}"
+
+    - name: "HP iLO Health BIOS Hardware"
+      unique_id: hp_ilo_health_bios_hardware
+      value_template: "{{ value_json.Status.Health | default('unknown') }}"
+
+    - name: "HP iLO Health Memory Status"
+      unique_id: hp_ilo_health_memory_status
+      value_template: "{{ value_json.MemorySummary.Status.HealthRollUp | default('unknown') }}"
+
+    - name: "HP iLO Health Network Status"
+      unique_id: hp_ilo_health_network_status
+      value_template: "{{ value_json.Status.Health | default('unknown') }}"
+
+    - name: "HP iLO Health Processor Status"
+      unique_id: hp_ilo_health_processor_status
+      value_template: "{{ value_json.ProcessorSummary.Status.HealthRollUp | default('unknown') }}"
+
+    - name: "HP iLO Health Storage Status"
+      unique_id: hp_ilo_health_storage_status
+      value_template: "{{ value_json.Status.Health | default('unknown') }}"
+
+    - name: "HP iLO UID Status"
+      unique_id: hp_ilo_uid_status
+      value_template: "{{ value_json.IndicatorLED | default('unknown') }}"
+
+# ── Temperatures + fan/temp health ──
+- resource: !secret hp_server_ilo_redfish_thermal_url
+  scan_interval: 120
+  timeout: 10
+  verify_ssl: false
+  authentication: basic
+  username: !secret hp_server_ilo_username
+  password: !secret hp_server_ilo_password
+  headers:
+    Accept: "application/json"
+  sensor:
+    - name: "HP iLO Temp Inlet"
+      unique_id: hp_ilo_temp_inlet
+      unit_of_measurement: "°C"
+      value_template: >-
+        {{ value_json.Temperatures
+           | selectattr('Name', 'equalto', '01-Inlet Ambient')
+           | map(attribute='ReadingCelsius')
+           | first | default('unavailable') }}
+
+    - name: "HP iLO Temp CPU1"
+      unique_id: hp_ilo_temp_cpu1
+      unit_of_measurement: "°C"
+      value_template: >-
+        {{ value_json.Temperatures
+           | selectattr('Name', 'equalto', '02-CPU 1')
+           | map(attribute='ReadingCelsius')
+           | first | default('unavailable') }}
+
+    - name: "HP iLO Temp CPU2"
+      unique_id: hp_ilo_temp_cpu2
+      unit_of_measurement: "°C"
+      value_template: >-
+        {{ value_json.Temperatures
+           | selectattr('Name', 'equalto', '03-CPU 2')
+           | map(attribute='ReadingCelsius')
+           | first | default('unavailable') }}
+
+    - name: "HP iLO Health Fan Status"
+      unique_id: hp_ilo_health_fan_status
+      value_template: >-
+        {% set unhealthy = value_json.Fans
+           | selectattr('Status.Health', 'defined')
+           | rejectattr('Status.Health', 'equalto', 'OK') | list %}
+        {{ 'Degraded' if unhealthy else 'OK' }}
+
+    - name: "HP iLO Health Temperature Status"
+      unique_id: hp_ilo_health_temperature_status
+      value_template: >-
+        {% set unhealthy = value_json.Temperatures
+           | selectattr('Status.Health', 'defined')
+           | rejectattr('Status.Health', 'equalto', 'OK') | list %}
+        {{ 'Degraded' if unhealthy else 'OK' }}
+
+# ── Power consumption ──
+- resource: !secret hp_server_ilo_redfish_power_url
+  scan_interval: 120
+  timeout: 10
+  verify_ssl: false
+  authentication: basic
+  username: !secret hp_server_ilo_username
+  password: !secret hp_server_ilo_password
+  headers:
+    Accept: "application/json"
+  sensor:
+    - name: "HP iLO Power Reading"
+      unique_id: hp_ilo_power_reading
+      unit_of_measurement: "W"
+      value_template: "{{ value_json.PowerControl[0].PowerConsumedWatts | default(0) }}"

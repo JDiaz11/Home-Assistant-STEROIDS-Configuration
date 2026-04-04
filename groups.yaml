@@ -245,6 +245,8 @@ backyard:
   entities:
     - switch.backyard_light_left
     - switch.backyard_light_right
+    - switch.backyard_mesh_lights
+    - switch.backyard_gym_lights
 
 attic:
   name: Attic

@@ -97,13 +97,6 @@ http:
 
 
 influxdb:
-  api_version: !secret influxdb_api_version
-  ssl: !secret influxdb_ssl
-  host: !secret influxdb_host
-  port: !secret influxdb_port
-  token: !secret influxdb_token
-  organization: !secret influxdb_organization
-  bucket: !secret influxdb_bucket
   tags:
     source: HA
   tags_attributes:
@@ -132,7 +125,14 @@ input_boolean:
 #    homeassistant.components.appdaemon: info
 
 lovelace:
-  mode: yaml
+  resource_mode: yaml
+  dashboards:
+    lovelace:
+      mode: yaml
+      filename: ui-monitor.yaml
+      title: Dashboard
+      icon: mdi:monitor-dashboard
+      show_in_sidebar: true
   resources:
     - url: /hacsfiles/atomic_calendar/atomic_calendar.js
       type: module
@@ -162,14 +162,6 @@ lovelace:
       type: module
     - url: https://fonts.googleapis.com/css2?family=Oxygen&family=Ubuntu:wght@300&display=swap
       type: css
-  dashboards:
-    lovelace-monitor: # Needs to contain a hyphen (-)
-      mode: yaml
-      filename: ui-monitor.yaml
-      title: Dashboard
-      icon: mdi:monitor-dashboard
-      show_in_sidebar: true
-      require_admin: true
     
 
 media_source:
@@ -182,6 +174,8 @@ notify:
 recorder:
   purge_keep_days: 7
   include: !include entity_tracking.yaml
+
+rest: !include sensors/hp_ilo_rest.yaml
 
 rest_command:
   hp_server_on:

@@ -5,8 +5,8 @@ panel: true
 cards:
   - type: 'custom:floorplan-card'
     config:
-      image: /local/floorplan/config/floorplan.svg?v=3.5.1
-      stylesheet: /local/floorplan/config/floorplan.css?v=3.5.1
+      image: /local/floorplan/config/floorplan.svg?v=3.5.4
+      stylesheet: /local/floorplan/config/floorplan.css?v=3.5.4
       rules:
         - name: Lights
           entities:
@@ -25,6 +25,7 @@ cards:
             - switch.upper_guest_bedroom_light_fan
             - switch.home_theatre_living_room
             - switch.backyard_mesh_lights
+            - switch.backyard_gym_lights
             - switch.entryway_festival_leds_01
             - switch.entryway_festival_leds_02
           states:
